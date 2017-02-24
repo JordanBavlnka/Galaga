@@ -5,7 +5,7 @@ class Ship
 {
 public:
 	Ship();
-	int getPos();
+	int* getPos();
 	void move(bool);
 	void shoot();
 	void die();
