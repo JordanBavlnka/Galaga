@@ -7,6 +7,7 @@ public:
     EvilGyaraga();
     ~EvilGyaraga();
     void return();
+    Boss* getBoss();
 private:
     Boss* myBoss;
     int ticksToSwitch;
