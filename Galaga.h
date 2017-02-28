@@ -20,7 +20,7 @@ public:
   void drawLevel();
   void render();
 private:
-  vecotr<Enemy> enemies;
+  vector<Enemy> enemies;
   vector<Bullet> bullets;
   Gyaraga player;
   int score;
