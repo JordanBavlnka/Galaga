@@ -24,3 +24,8 @@ void Enemy::idle()
 void Enemy::goAlongPath()
 {
 }
+
+
+virtual void Enemy::update()
+{
+}
