@@ -7,6 +7,6 @@ public:
 	~Bullet();
 private:
 	bool enemy;
-	int direction[2];
+	int direction;
 };
 
