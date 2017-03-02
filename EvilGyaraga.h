@@ -12,6 +12,7 @@ public:
     int getTicks();
     void setTicks(int);
     void tick();
+    void update();
 private:
     Boss* myBoss;
     int ticksToSwitch;
