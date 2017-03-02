@@ -45,3 +45,8 @@ void EvilGyaraga::tick()
 {
   ticksToSwitch--;
 }
+
+
+void EvilGyaraga::update()
+{
+}
