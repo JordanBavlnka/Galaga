@@ -4,6 +4,7 @@
 
 BonusBug::BonusBug()
 {
+  canIdle = false;
 }
 
 
