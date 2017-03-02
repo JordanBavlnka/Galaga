@@ -8,7 +8,6 @@ public:
 	void shoot();
 	void die();
 	~Ship();
-	virtual void update() = 0;
 private:
 	int pos[2];
 	int mSpeed;
