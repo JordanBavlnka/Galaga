@@ -16,3 +16,8 @@ bool Bullet::isEnemy()
 {
 	return enemy;
 }
+
+
+void Bullet::update()
+{
+}
