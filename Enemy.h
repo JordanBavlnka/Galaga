@@ -8,6 +8,7 @@ public:
         void dive();
         void idle();
         void goAlongPath();
+        virtual void update();
 private:
         bool canIdle;
         vector<int[2]>* curPath();
