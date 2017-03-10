@@ -4,8 +4,8 @@ class Ship
 public:
 	Ship();
 	int* getPos();
-	void move(bool);
-	void shoot();
+	virtual void move(bool);
+	virtual void shoot();
 	virtual void die();
 	~Ship();
 private:
