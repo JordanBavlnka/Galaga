@@ -6,7 +6,7 @@ public:
 	int* getPos();
 	void move(bool);
 	void shoot();
-	void die();
+	virtual void die();
 	~Ship();
 private:
 	int pos[2];
