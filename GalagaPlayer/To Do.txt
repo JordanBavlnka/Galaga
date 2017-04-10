@@ -1,0 +1,14 @@
+enemy rotation-done
+import paths
+bullet clipping
+dynamic paths
+death animations?
+
+(goal for Friday?)
+
+menu screen
+swoop/cactus/pickup
+background stars
+level symbols
+differentiate levels
+2 player?
