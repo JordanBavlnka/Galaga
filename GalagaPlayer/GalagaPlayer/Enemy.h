@@ -16,11 +16,12 @@ public:
         virtual void update();
 		virtual int identity() = 0;
 		Bullet * shoot(Ship*);
-		void setPath(std::vector<std::pair<int, int>>*);
+		void setPath(std::vector<std::pair<int, int>>);
+		void setHome(int, int);
 		sf::Rect<int> textureLocation();
 private:
         bool canIdle;
-        std::vector<std::pair<int,int>>* curPath;
+        std::vector<std::pair<int,int>> curPath;
 		int nextLoc;
         int home[2];
 };

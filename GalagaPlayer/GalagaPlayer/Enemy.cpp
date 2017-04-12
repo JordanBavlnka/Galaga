@@ -8,7 +8,7 @@ using namespace std;
 Enemy::Enemy()
 {
 	nextLoc = 1;
-	mSpeed = 1;
+	mSpeed = 1500;
 }
 
 
@@ -29,34 +29,50 @@ void Enemy::idle()
 
 void Enemy::goAlongPath()
 {
-	int targetX = get<0>(curPath->at(nextLoc));
-	int targetY = get<1>(curPath->at(nextLoc));
+	int targetX = get<0>(curPath.at(nextLoc));
+	int targetY = get<1>(curPath.at(nextLoc));
 	int curX = pos[0];
 	int curY = pos[1];
+
 	double totalDistance = pow(pow(curX - targetX, 2) + pow(curY - targetY, 2), 0.5);
-	if (totalDistance <= mSpeed)//if you're there
+	if (totalDistance*1000 <= mSpeed)//if you're there
 	{
 		pos[0] = targetX;
 		pos[1] = targetY;//get the rest of the way
 		nextLoc++;
-		if (nextLoc == curPath->size())
-			nextLoc = 0;//return completed bool?
+		if (nextLoc == curPath.size())
+		{
+			nextLoc--;
+		}
+		/*
+		targetX = get<0>(curPath.at(nextLoc));
+		targetY = get<1>(curPath.at(nextLoc));
+
+		curX = pos[0];
+		curY = pos[1];
+
+		double newDistance = pow(pow(curX - targetX, 2) + pow(curY - targetY, 2), 0.5);
+
+		pos[0] += ((mSpeed-totalDistance*1000)*(targetX - curX)) / newDistance / 1000;
+		pos[1] += ((mSpeed - totalDistance * 1000)*(targetY - curY)) / newDistance / 1000;
+		cout << pos[0] << " " << pos[1] << endl;*/
 	}
 
 	else//normal moving
 	{
-		pos[0] += (mSpeed*(targetX - curX)) / totalDistance;
-		pos[1] += (mSpeed*(targetY - curY)) / totalDistance;
+
+		pos[0] += (mSpeed*(targetX - curX)) / totalDistance / 1000;
+		pos[1] += (mSpeed*(targetY - curY)) / totalDistance/1000;
 	}
 }
 
 
 void Enemy::update()
-{
+{                                                       
 }
 
 
-void Enemy::setPath(std::vector<std::pair<int, int>>* newPath)
+void Enemy::setPath(std::vector<std::pair<int, int>> newPath)
 {
 	curPath = newPath;
 }
@@ -77,15 +93,19 @@ sf::Rect<int> Enemy::textureLocation()
 	int topBoundary = 80 + 24 * identity;
 	int leftBoundary = 160;//default value
 
-	int targetX = get<0>(curPath->at(nextLoc));
-	int targetY = get<1>(curPath->at(nextLoc));
+	int targetX = get<0>(curPath.at(nextLoc));
+	int targetY = get<1>(curPath.at(nextLoc));
 
-	double curX = pos[0];
-	double curY = pos[1];
+	double lastX = get<0>(curPath.at(nextLoc == 0?0:nextLoc-1));
+	double lastY = get<1>(curPath.at(nextLoc == 0 ? 0 : nextLoc - 1));
 
-	if (curX!=targetX)
+	if (lastX!=targetX)
 	{
-		double slope = abs((targetY - curY) / (targetX - curX));
+		static double prevslope;
+
+		double slope = abs((targetY - lastY) / (targetX - lastX));
+
+		cout << slope <<  endl;
 		for (int i = 1; i < 12; i+=2)
 		{
 			if (leftBoundary == 160 && slope < tan(0.131*i))
@@ -94,9 +114,13 @@ sf::Rect<int> Enemy::textureLocation()
 			}
 		}
 	}
-	if (curX > targetX)
+	else
 	{
-		if (curY > targetY)
+		cout << nextLoc << get<0>(curPath.at(nextLoc)) << endl;
+	}
+	if (lastX > targetX)
+	{
+		if (lastY > targetY)
 		{
 			return sf::IntRect(leftBoundary, topBoundary, 16, 16);
 		}
@@ -107,7 +131,7 @@ sf::Rect<int> Enemy::textureLocation()
 	}
 	else
 	{
-		if (curY > targetY)
+		if (lastY > targetY)
 		{
 			return sf::IntRect(leftBoundary+15, topBoundary, -16, 16);
 		}
@@ -117,4 +141,11 @@ sf::Rect<int> Enemy::textureLocation()
 		}
 	}
 
+}
+
+
+void Enemy::setHome(int x, int y)
+{
+	curPath.push_back({ x, y+1 });
+	curPath.push_back({ x, y });
 }

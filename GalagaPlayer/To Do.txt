@@ -1,8 +1,8 @@
 enemy rotation-done
-import paths
+import paths-done
 bullet clipping
 dynamic paths
-death animations?
+death animations?-done for player, 
 
 (goal for Friday?)
 
