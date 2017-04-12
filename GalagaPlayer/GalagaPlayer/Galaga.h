@@ -8,7 +8,9 @@
 #include "Butterfly.h"
 #include "Bullet.h"
 #include <SFML/Graphics.hpp>
-#include <string.h>
+#include <string>
+#include <time.h>
+
 
 
 class Galaga
@@ -21,6 +23,9 @@ public:
   void drawScore();
   std::string drawLevel(int);
   void render(sf::RenderWindow*, int);
+  void makePath(std::string, std::vector<std::pair<int,int>>*);
+  int stringToInt(std::string);
+  void tick(sf::RenderWindow*, int);
 protected:
   //should be vector<int[2]>, but c++ doesnt like that
   std::vector<std::pair<int, int>> paths[37];
