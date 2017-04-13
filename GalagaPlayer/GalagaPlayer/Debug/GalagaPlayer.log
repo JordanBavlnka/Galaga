@@ -1,11 +1,28 @@
-﻿Build started 4/6/2017 4:16:36 PM.
-     1>Project "C:\Users\18dcb01\Desktop\C++\GalagaPlayer\GalagaPlayer\GalagaPlayer.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/12/2017 10:29:55 PM.
+     1>Project "C:\Users\danie_000\Documents\Visual Studio 2013\Projects\Galaga-goingHome\GalagaPlayer\GalagaPlayer\GalagaPlayer.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\18dcb01\Downloads\SFML-2.4.2-windows-vc12-32-bit\SFML-2.4.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\GalagaPlayer.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Ship.cpp
-         Ship.cpp
-     1>c:\users\18dcb01\desktop\c++\galagaplayer\galagaplayer\ship.cpp(45): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\GalagaPlayer.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp Galaga.cpp
+         Galaga.cpp
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(32): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(179): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(191): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(263): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(272): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(347): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(352): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(367): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(375): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(380): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(383): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         Enemy.cpp
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\enemy.cpp(33): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\enemy.cpp(40): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\enemy.cpp(41): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\enemy.cpp(118): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+         Generating Code...
+     1>c:\users\danie_000\documents\visual studio 2013\projects\galaga-goinghome\galagaplayer\galagaplayer\galaga.cpp(202): warning C4715: 'Galaga::draft' : not all control paths return a value
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\18dcb01\Desktop\C++\GalagaPlayer\Debug\GalagaPlayer.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\18dcb01\Downloads\SFML-2.4.2-windows-vc12-32-bit\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "Sfml-system-d.lib" "Sfml-network-d.lib" "sfml-audio-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\18dcb01\Desktop\C++\GalagaPlayer\Debug\GalagaPlayer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\18dcb01\Desktop\C++\GalagaPlayer\Debug\GalagaPlayer.lib" /MACHINE:X86 Debug\Bee.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\danie_000\Documents\Visual Studio 2013\Projects\Galaga-goingHome\GalagaPlayer\Debug\GalagaPlayer.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "Sfml-system-d.lib" "Sfml-network-d.lib" "sfml-audio-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\danie_000\Documents\Visual Studio 2013\Projects\Galaga-goingHome\GalagaPlayer\Debug\GalagaPlayer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\danie_000\Documents\Visual Studio 2013\Projects\Galaga-goingHome\GalagaPlayer\Debug\GalagaPlayer.lib" /MACHINE:X86 Debug\Bee.obj
          Debug\Boss.obj
          Debug\Bullet.obj
          Debug\Butterfly.obj
@@ -15,9 +32,9 @@
          Debug\Gyaraga.obj
          Debug\Ship.obj
          Debug\stdafx.obj
-         GalagaPlayer.vcxproj -> C:\Users\18dcb01\Desktop\C++\GalagaPlayer\Debug\GalagaPlayer.exe
-     1>Done Building Project "C:\Users\18dcb01\Desktop\C++\GalagaPlayer\GalagaPlayer\GalagaPlayer.vcxproj" (Build target(s)).
+         GalagaPlayer.vcxproj -> C:\Users\danie_000\Documents\Visual Studio 2013\Projects\Galaga-goingHome\GalagaPlayer\Debug\GalagaPlayer.exe
+     1>Done Building Project "C:\Users\danie_000\Documents\Visual Studio 2013\Projects\Galaga-goingHome\GalagaPlayer\GalagaPlayer\GalagaPlayer.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.38
+Time Elapsed 00:00:02.83

@@ -6,6 +6,14 @@ Bee::Bee(){
 	pos[1] = 42;
 }
 
+
+Bee::Bee(std::vector<std::pair<int, int>> newPath)
+{
+	setPath(newPath);
+	pos[0] = std::get<0>(newPath.at(0));
+	pos[1] = std::get<1>(newPath.at(0));
+}
+
 Bee::Bee(int x, int y)
 {
 	pos[0] = x;
@@ -26,9 +34,6 @@ void Bee::swoop()
 void Bee::transform(int numBugs)
 {
 	//turn into bonus stuff
-	//if stage 4,5, or 6: Scorpions
-	//if 7, 8, or 9: spy ship
-	//if 10,11, or 12: Galaxian flagship
 }
 
 

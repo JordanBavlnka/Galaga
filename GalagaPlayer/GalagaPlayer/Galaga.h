@@ -8,7 +8,9 @@
 #include "Butterfly.h"
 #include "Bullet.h"
 #include <SFML/Graphics.hpp>
-#include <string.h>
+#include <string>
+#include <time.h>
+
 
 
 class Galaga
@@ -21,9 +23,16 @@ public:
   void drawScore();
   std::string drawLevel(int);
   void render(sf::RenderWindow*, int);
+  void makePath(std::string, std::vector<std::pair<int, int>>*);
+  int stringToInt(std::string);
+  void tick(sf::RenderWindow*, int, int);
+  void tick(sf::RenderWindow*, int);
+  void create(int, int, int);
+  void dive();
+  int draft();
 protected:
   //should be vector<int[2]>, but c++ doesnt like that
-  std::vector<std::pair<int, int>> paths[37];
+  std::vector<std::pair<int, int>> paths[8];
 private:
   std::vector<Enemy*> enemies;
   std::vector<Bullet*> bullets;
