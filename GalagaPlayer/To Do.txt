@@ -1,11 +1,15 @@
 enemy rotation-done
-import paths
+import paths-done
 bullet clipping
 dynamic paths
-death animations?
+death animations?-done for player, 
 
 (goal for Friday?)
 
+dying reduces lives
+death animation enemies
+high score
+multiple lives for boss galaga
 menu screen
 swoop/cactus/pickup
 background stars

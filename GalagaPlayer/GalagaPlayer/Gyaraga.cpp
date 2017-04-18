@@ -20,10 +20,14 @@ void Gyaraga::move(bool right)
 	if (right)
 	{
 		if (pos[0] < 234)
-			pos[0]++;
+			pos[0] += 2;
+		else
+			pos[0] = 233;
 	}
 	else if (pos[0]>1)
-		pos[0]--;
+		pos[0] -= 3;
+	else
+		pos[0] = 3;
 }
 
 
