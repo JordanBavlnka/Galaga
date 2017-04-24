@@ -14,6 +14,11 @@ using namespace std;
 
 Galaga::Galaga()
 {
+	for (int i = 0; i < 20; i++)
+	{
+		backgroundScrollX[i] = rand() % 250;
+		backgroundScrollY[i] = rand() % 322;
+	}
 }
 
 
