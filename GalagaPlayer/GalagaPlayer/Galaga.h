@@ -36,4 +36,6 @@ private:
   int score;
   int highscore;
   int level;
+  int backgroundScrollX[20];
+  int backgroundScrollY[20];
 };
