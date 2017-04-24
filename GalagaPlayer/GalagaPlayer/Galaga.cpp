@@ -178,6 +178,20 @@ void Galaga::render(sf::RenderWindow *window, int originKeyState)
 			window->close();
 	}
 
+
+	sf::Texture backgroundTexture;
+	backgroundTexture.loadFromFile("background.png");
+
+	sf::Sprite background;
+	background.setTexture(backgroundTexture);
+	if (backgroundScroll <= 0)
+		backgroundScroll = 322;
+	background.setTextureRect(sf::IntRect(0, backgroundScroll, 250, 322));
+	background.setPosition(0, 0);
+
+	backgroundScroll -= 2;
+
+
 	sf::Texture texture;
 	texture.loadFromFile("GalagaSprites.png");
 
@@ -205,6 +219,7 @@ void Galaga::render(sf::RenderWindow *window, int originKeyState)
 
 
 	window->clear();
+	window->draw(background);
 	window->draw(playerSprite);
 	for (int i = 0; i < bullets.size(); i++)
 	{
@@ -230,8 +245,10 @@ void Galaga::render(sf::RenderWindow *window, int originKeyState)
 			break;
 		}
 	}
+
 	window->display();
 }
+
 
 
 void Galaga::makePath(string pathPos, vector<pair<int,int>>* path) {
