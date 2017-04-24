@@ -177,20 +177,20 @@ void Galaga::render(sf::RenderWindow *window, int originKeyState)
 		if (event.type == sf::Event::Closed || GetKeyState(27) == 1 - originKeyState)//x button or escape key
 			window->close();
 	}
-
-
+	
 	sf::Texture backgroundTexture;
-	backgroundTexture.loadFromFile("background.png");
+	backgroundTexture.loadFromFile("star.png");
 
-	sf::Sprite background;
-	background.setTexture(backgroundTexture);
-	if (backgroundScroll <= 0)
-		backgroundScroll = 322;
-	background.setTextureRect(sf::IntRect(0, backgroundScroll, 250, 322));
-	background.setPosition(0, 0);
-
-	backgroundScroll -= 2;
-
+	sf::Sprite background[20];
+	for (int i = 0; i < 20; i++)
+	{
+		background[i].setTexture(backgroundTexture);
+		if (backgroundScrollY[i] >= 322)
+			backgroundScrollY[i] = 0;
+		background[i].setTextureRect(sf::IntRect(0, 0, 3, 4));
+		background[i].setPosition(backgroundScrollX[i], backgroundScrollY[i]);
+		backgroundScrollY[i] += 2;
+	}
 
 	sf::Texture texture;
 	texture.loadFromFile("GalagaSprites.png");
@@ -219,7 +219,8 @@ void Galaga::render(sf::RenderWindow *window, int originKeyState)
 
 
 	window->clear();
-	window->draw(background);
+	for (int i = 0; i < 20;i++)
+		window->draw(background[i]);
 	window->draw(playerSprite);
 	for (int i = 0; i < bullets.size(); i++)
 	{
