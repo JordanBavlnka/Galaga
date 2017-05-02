@@ -9,8 +9,8 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	sf::RenderWindow window(sf::VideoMode(1050, 1352), "Galaga");
-	window.setView(sf::View(sf::FloatRect(0,0,250,322)));
+	sf::RenderWindow window(sf::VideoMode(1050, 1352), "Galaga");//create a window
+	window.setView(sf::View(sf::FloatRect(0,0,250,322)));//pixelate
 	Galaga game;
 	game.play(&window);
 	return 0;

@@ -19,6 +19,7 @@ Boss::Boss(std::vector<std::pair<int, int>> newPath)
 	setPath(newPath);
 	pos[0] = std::get<0>(newPath.at(0));
 	pos[1] = std::get<1>(newPath.at(0));
+	extraLife = true;
 }
 
 

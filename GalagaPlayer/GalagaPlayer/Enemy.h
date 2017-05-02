@@ -12,7 +12,7 @@ public:
 		~Enemy();
         void dive();
         void idle();
-        void goAlongPath();
+        void goAlongPath(int, bool);
         virtual void update();
 		virtual int identity() = 0;
 		Bullet * shoot(Ship*);
@@ -21,10 +21,15 @@ public:
 		bool isDropping();
 		void setHome(int, int);
 		sf::Rect<int> textureLocation();
+		void loseLife();
+protected:
+		bool extraLife;
 private:
         bool canIdle;
 		bool dropping;
+		bool isHome;
         std::vector<std::pair<int,int>> curPath;
 		int nextLoc;
-        int home[2];
+		int home[2];
+		bool openWings;
 };

@@ -10,11 +10,18 @@ Enemy::Enemy()
 	nextLoc = 1;
 	mSpeed = 3000;
 	dropping = false;
+	isHome = false;
 }
 
 
 Enemy::~Enemy()
 {
+}
+
+
+void Enemy::loseLife()
+{
+	extraLife = false;
 }
 
 
@@ -28,15 +35,58 @@ void Enemy::idle()
 }
 
 
-void Enemy::goAlongPath()
+void Enemy::goAlongPath(int staticPos, bool separating)
 {
 	if (nextLoc >= curPath.size())
 	{
 		cout << nextLoc <<"  " << curPath.size() << endl;
 		system("pause");
 	}
-	int targetX = get<0>(curPath.at(nextLoc));
-	int targetY = get<1>(curPath.at(nextLoc));
+	double targetX;
+	double targetY;
+	targetX = get<0>(curPath.at(nextLoc));
+	targetY = get<1>(curPath.at(nextLoc));
+	if (targetX == home[0] && targetY == home[1])
+	{
+		if (separating)
+		{
+			staticPos /= 30;
+			openWings = (staticPos) % 2 == 0;
+			staticPos *= 10;
+
+			staticPos = staticPos % 120;
+
+			if (staticPos > 60)
+				staticPos = 120 - staticPos;
+
+			if (this->identity() < 3)
+				staticPos = 0;
+
+			staticPos /= 5;
+			staticPos *= 2;
+
+			pos[0] = targetX = static_cast<double>((home[0] - 115)*(90+staticPos))/90+115;
+			pos[1] = targetY = home[1];
+		}
+		else
+		{
+			staticPos /= 30;
+			openWings = (staticPos) % 2 == 0;
+			staticPos *= 10;
+			staticPos = staticPos % 80;
+			if (staticPos > 20)
+				staticPos = 40 - staticPos;
+			if (staticPos < -20)
+				staticPos = -40 - staticPos;
+
+			staticPos /= 10;
+			staticPos *= 6;
+
+			pos[0] = targetX = home[0] + staticPos;
+			pos[1] = targetY = home[1];
+
+		}
+	}
 	int curX = pos[0];
 	int curY = pos[1];
 
@@ -62,7 +112,10 @@ void Enemy::goAlongPath()
 				curPath.push_back({ home[0], home[1] });
 			}
 			else
+			{
+				isHome = true;
 				nextLoc--;
+			}
 		}
 		/*
 		targetX = get<0>(curPath.at(nextLoc));
@@ -95,12 +148,13 @@ void Enemy::update()
 void Enemy::drop()
 {
 	dropping = true;
+	isHome = false;
 }
 
 
 bool Enemy::isDropping()
 {
-	return !(home[0]==pos[0]&&home[1]==pos[1]);
+	return dropping;
 }
 
 
@@ -132,6 +186,14 @@ sf::Rect<int> Enemy::textureLocation()
 	double lastX;
 	double lastY;
 
+	if (isHome)
+	{
+		if (openWings)
+		{
+
+		}
+	}
+
 	if (nextLoc == 0)
 	{
 		lastX = home[0];
@@ -158,7 +220,12 @@ sf::Rect<int> Enemy::textureLocation()
 	}
 	else
 	{
+		if (isHome&&!openWings)
+		{
+			leftBoundary += 24;
+		}
 	}
+
 	if (lastX > targetX)
 	{
 		if (lastY > targetY)

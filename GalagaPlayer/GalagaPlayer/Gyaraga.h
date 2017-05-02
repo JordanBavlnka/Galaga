@@ -14,6 +14,9 @@ public:
 	void addShip();
 	void caught();
 	virtual Bullet* shoot();
+	void rebirth(int);
+	void reset();
+	bool dying();
 private:
 	bool together;
 };

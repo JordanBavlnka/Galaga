@@ -19,7 +19,6 @@ public:
   Galaga();
   ~Galaga();
   void play(sf::RenderWindow*);
-  void checkCollision();
   void drawScore();
   std::string drawLevel(int);
   void render(sf::RenderWindow*, int);
@@ -41,7 +40,7 @@ private:
   std::vector<Enemy*> enemies;
   std::vector<Bullet*> bullets;
   Gyaraga player;
-  int score;
+  unsigned long long int score;
   int highscore;
   int level;
   int lives;
@@ -50,5 +49,9 @@ private:
 
   int shipSize[2];
   int bulletSize[2];
-  int numBullets = 0;
+  int numBullets;
+  int backgroundScrollY[20];
+  int backgroundScrollX[20];
+  bool separating;
+  
 };

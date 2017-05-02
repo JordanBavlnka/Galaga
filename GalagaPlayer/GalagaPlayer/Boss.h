@@ -12,6 +12,5 @@ public:
 	~Boss();
 	void vortex();
 	virtual int identity();
-	bool extraLife;
 };
 

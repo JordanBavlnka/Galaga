@@ -1,9 +1,17 @@
 #include "stdafx.h"
 #include "Gyaraga.h"
 #include "Bullet.h"
+#include <iostream>
 
 
 Gyaraga::Gyaraga()
+{
+	pos[0] = 117;
+	pos[1] = 285;
+}
+
+
+void Gyaraga::reset()
 {
 	pos[0] = 117;
 	pos[1] = 285;
@@ -17,17 +25,35 @@ Gyaraga::~Gyaraga()
 
 void Gyaraga::move(bool right)
 {
-	if (right)
+	if (!this->dying())
 	{
-		if (pos[0] < 234)
-			pos[0] += 2;
+		if (right)
+		{
+			if (pos[0] < 230)
+				pos[0] += 3;
+			else
+				pos[0] = 233;
+		}
+		else if (pos[0]>2)
+			pos[0] -= 3;
 		else
-			pos[0] = 233;
+			pos[0] = 0;
 	}
-	else if (pos[0]>1)
-		pos[0] -= 3;
+}
+
+
+void Gyaraga::rebirth(int t)
+{
+	if (t < 117)
+	{
+		pos[0] = t;
+		pos[1] = 302;
+	}
 	else
-		pos[0] = 3;
+	{
+		pos[0] = 117;
+		pos[1] = 419 - t;
+	}
 }
 
 
@@ -47,4 +73,10 @@ Bullet* Gyaraga::shoot()
 {
 	Bullet *myShot = new Bullet(false,pos[0]+6,pos[1]-5,0);
 	return myShot;
+}
+
+
+bool Gyaraga::dying()
+{
+	return this->getDieState() != 0||pos[1]!=285;
 }
