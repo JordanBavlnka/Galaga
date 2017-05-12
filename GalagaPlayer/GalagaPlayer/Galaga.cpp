@@ -62,7 +62,8 @@ void Galaga::play(sf::RenderWindow *window)
 
   while (window->isOpen())//game loop
   {
-
+	  initTime = clock();
+	  ticks = 0;
 	while (window->isOpen()&&lives>=0)//level loop
     {
 		for (int i = 68; i < 124; i += 16)//first set entering
@@ -73,7 +74,7 @@ void Galaga::play(sf::RenderWindow *window)
 			tick(window, originKeyState, 8, false);
 		}
 
-		tick(window, originKeyState, 150, false);//wait to get in position
+		tick(window, originKeyState, 175, false);//wait to get in position
 
 		for (int i = 0; i < 4; i ++)//second set entering
 		{
@@ -113,9 +114,9 @@ void Galaga::play(sf::RenderWindow *window)
 			tick(window, originKeyState, 8, false);
 		}
 
-		separating = true;//bugs switch from side to side to expand/contract
-
 		tick(window, originKeyState, 175, false);
+
+		separating = true;//bugs switch from side to side to expand/contract
 
 
 	  while (window->isOpen()&&enemies.size()>0)//repeat for the rest of the level
@@ -422,6 +423,7 @@ void Galaga::tick(sf::RenderWindow *window, int originKeyState, bool shoot)
 		if (collide(temp1, temp2, temp[0][0], temp[0][1], false)&&!player.dying()) {
 			delete enemies.at(i);
 			enemies.erase(enemies.begin() + i);
+			i--;
 
 			player.die();
 			throw 42;//break the loop
@@ -430,7 +432,8 @@ void Galaga::tick(sf::RenderWindow *window, int originKeyState, bool shoot)
 	}
 
 	render(window, originKeyState);
-	while (clock() - time < 15){}
+	while (clock() - initTime < 15*ticks){}
+	ticks++;
 }
 
 //framework to draw level with symbols. not currently implemented.
@@ -478,13 +481,16 @@ string Galaga::drawLevel(int curLevel)
 //draws everything
 void Galaga::render(sf::RenderWindow *window, int originKeyState)
 {
+
+
+	bool display = (clock() - initTime) < 15 * ticks;
+
 	sf::Event event;//standard sfml
 	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed || GetKeyState(27) == 1 - originKeyState)//x button or escape key
 			window->close();
 	}
-
 	sf::Texture backgroundTexture;
 	backgroundTexture.loadFromFile("star.png");
 
@@ -499,86 +505,100 @@ void Galaga::render(sf::RenderWindow *window, int originKeyState)
 		backgroundScrollY[i] += 2;
 	}
 
-	sf::Texture texture;//open up main sprite file
-	texture.loadFromFile("GalagaSprites.png");
-
-	sf::Sprite playerSprite;
-	playerSprite.setTexture(texture);
-	if (player.getDieState() == 0)//if you're not dying
+	if (display)
 	{
-		playerSprite.setTextureRect(sf::IntRect(184, 55, 16, 16));//normal sprite
-		playerSprite.setPosition(*player.getPos(), *(player.getPos() + 1));
-	}
-	else
-	{
-		playerSprite.setTextureRect(sf::IntRect(168 + 40 * player.getDieState(), 47, 32, 32));//explode sprite
-		playerSprite.setPosition(*player.getPos()-8, *(player.getPos() + 1)-8);//explode sprite is 8 larger on each side
-	}
 
+		sf::Texture texture;//open up main sprite file
+		texture.loadFromFile("GalagaSprites.png");
 
-	sf::Sprite myShotSprite;//player buller
-	myShotSprite.setTexture(texture);
-	myShotSprite.setTextureRect(sf::IntRect(373, 75, 3, 7));
-
-	sf::Sprite hisShotSprite;//enemy bullet
-	hisShotSprite.setTexture(texture);
-	hisShotSprite.setTextureRect(sf::IntRect(373, 42, 3, 7));
-
-	sf::Sprite beeSprite;//all enemies
-	beeSprite.setTexture(texture);
-	beeSprite.setTextureRect(sf::IntRect(162,178,13,10));
-
-
-	sf::Texture scoreTexture;//alternate texture file that has numbers
-	scoreTexture.loadFromFile("number_sprites.png");
-
-	sf::Sprite scoreSprite;
-	scoreSprite.setTexture(scoreTexture);
-
-
-	window->clear();
-
-	for (int i = 0; i < 20; i++)//draw all the stars
-		window->draw(background[i]);
-
-	window->draw(playerSprite);
-
-	for (int i = 0; i < lives; i++)//draw extra lives
-	{
-		playerSprite.setTextureRect(sf::IntRect(184, 55, 16, 16));
-		playerSprite.setPosition(sf::Vector2f(16*i,302));
-		window->draw(playerSprite);		
-	}
-
-
-	for (int i = 0; i < bullets.size(); i++)//draw bullets
-	{
-		if (/*(bullets.at(i))->getEnemy()*/false)
+		sf::Sprite playerSprite;
+		playerSprite.setTexture(texture);
+		if (player.getDieState() == 0)//if you're not dying
 		{
-			//should be a different texture for enemies
+			playerSprite.setTextureRect(sf::IntRect(184, 55, 16, 16));//normal sprite
+			playerSprite.setPosition(*player.getPos(), *(player.getPos() + 1));
 		}
 		else
 		{
-			myShotSprite.setPosition((bullets.at(i)->getPos(true)), (bullets.at(i)->getPos(false)));
-			window->draw(myShotSprite);
+			playerSprite.setTextureRect(sf::IntRect(168 + 40 * player.getDieState(), 47, 32, 32));//explode sprite
+			playerSprite.setPosition(*player.getPos() - 8, *(player.getPos() + 1) - 8);//explode sprite is 8 larger on each side
 		}
-	}
 
-	for (int i = 0; i < enemies.size(); i++)//draw enemies
-	{
-		beeSprite.setTextureRect(enemies.at(i)->textureLocation());
-		beeSprite.setPosition((enemies.at(i)->getPos())[0], (enemies.at(i)->getPos())[1]);
-		window->draw(beeSprite);
-	}
 
-	string scoreString = std::to_string(score);
-	for (int i = 0; i < scoreString.size(); i++)//draw score
-	{
-		scoreSprite.setTextureRect(sf::IntRect((scoreString.at(i) - '0') * 8, 0, 4, 5));
-		scoreSprite.setPosition(sf::Vector2f(6 * i, 1));
-		window->draw(scoreSprite);
+		sf::Sprite myShotSprite;//player buller
+		myShotSprite.setTexture(texture);
+		myShotSprite.setTextureRect(sf::IntRect(366, 195, 3, 7));
+
+		sf::Sprite hisShotSprite;//enemy bullet
+		hisShotSprite.setTexture(texture);
+		hisShotSprite.setTextureRect(sf::IntRect(374, 51, 3, 7));
+
+		sf::Sprite beeSprite;//all enemies
+		beeSprite.setTexture(texture);
+		beeSprite.setTextureRect(sf::IntRect(162, 178, 13, 10));
+
+
+		sf::Texture scoreTexture;//alternate texture file that has numbers
+		scoreTexture.loadFromFile("number_sprites.png");
+
+		sf::Sprite scoreSprite;
+		scoreSprite.setTexture(scoreTexture);
+
+
+		window->clear();
+
+		for (int i = 0; i < 20; i++)//draw all the stars
+			window->draw(background[i]);
+
+		window->draw(playerSprite);
+
+		for (int i = 0; i < lives; i++)//draw extra lives
+		{
+			playerSprite.setTextureRect(sf::IntRect(184, 55, 16, 16));
+			playerSprite.setPosition(sf::Vector2f(16 * i, 302));
+			window->draw(playerSprite);
+		}
+
+
+		for (int i = 0; i < bullets.size(); i++)//draw bullets
+		{
+			//sprite for enemy bullets
+			if (bullets.at(i)->getEnemy())
+			{
+				hisShotSprite.setPosition((bullets.at(i)->getPos(true)), (bullets.at(i)->getPos(false)));
+				window->draw(hisShotSprite);
+			}
+			//sprite for player bullets
+			else
+			{
+				myShotSprite.setPosition((bullets.at(i)->getPos(true)), (bullets.at(i)->getPos(false)));
+				window->draw(myShotSprite);
+			}
+		}
+
+		for (int i = 0; i < enemies.size(); i++)//draw enemies
+		{
+			beeSprite.setTextureRect(enemies.at(i)->textureLocation());
+			beeSprite.setPosition((enemies.at(i)->getPos())[0], (enemies.at(i)->getPos())[1]);
+			window->draw(beeSprite);
+		}
+
+		sf::Sprite scoreTextSprite;
+		scoreTextSprite.setTexture(scoreTexture);
+		scoreTextSprite.setTextureRect(sf::IntRect(225,8,28,5));
+
+		scoreTextSprite.setPosition(sf::Vector2f(1, 1));
+		window->draw(scoreTextSprite);
+
+		string scoreString = std::to_string(score);
+		for (int i = 0; i < scoreString.size(); i++)//draw score
+		{
+			scoreSprite.setTextureRect(sf::IntRect((scoreString.at(i) - '0') * 8, 0, 4, 5));
+			scoreSprite.setPosition(sf::Vector2f(6 * i+1, 8));
+			window->draw(scoreSprite);
+		}
+		window->display();
 	}
-	window->display();
 }
 
 //import path
